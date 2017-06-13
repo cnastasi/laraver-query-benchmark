@@ -2,9 +2,17 @@
 
 ## Installation
 
-`composer install` 
+- `composer install` 
 
-`php artisan key:generate`
+- `cp .env.example .env`
+
+- change the .app database configuration
+
+- create the database
+
+- `php artisan migrate`
+
+- `php artisan key:generate`
 
 ## Usage
 `php artisan benchmark:eloquent1 {samples}`
