@@ -5,6 +5,8 @@ namespace App\Console;
 use App\Console\Commands\Eloquent1Benchmark;
 use App\Console\Commands\Eloquent2Benchmark;
 use App\Console\Commands\Eloquent3Benchmark;
+use App\Console\Commands\Eloquent4Benchmark;
+use App\Console\Commands\Eloquent5Benchmark;
 use App\Console\Commands\QueryBuilder1Benchmark;
 use App\Console\Commands\QueryBuilder2Benchmark;
 use App\Console\Commands\QueryBuilder3Benchmark;
@@ -24,6 +26,8 @@ class Kernel extends ConsoleKernel
         Eloquent1Benchmark::class,
         Eloquent2Benchmark::class,
         Eloquent3Benchmark::class,
+        Eloquent4Benchmark::class,
+        Eloquent5Benchmark::class,
         QueryBuilder1Benchmark::class,
         QueryBuilder2Benchmark::class,
         QueryBuilder3Benchmark::class,

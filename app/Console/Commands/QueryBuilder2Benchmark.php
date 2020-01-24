@@ -26,6 +26,8 @@ class QueryBuilder2Benchmark extends BenchmarkCommand
     {
         /** @var Builder $query */
         $query = DB::table('users');
+    
+        DB::beginTransaction();
 
         for ($i = 0; $i < $samples; $i++) {
             $data = $this->getData($i);
@@ -36,6 +38,7 @@ class QueryBuilder2Benchmark extends BenchmarkCommand
             }
         }
 
+        DB::commit();
         $this->warn("Done");
     }
 

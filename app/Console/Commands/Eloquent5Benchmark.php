@@ -6,26 +6,28 @@ use App\User;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
 
-class QueryBuilder4Benchmark extends BenchmarkCommand
+class Eloquent5Benchmark extends BenchmarkCommand
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'benchmark:query_builder4 {samples} {chunkSize}';
+    protected $signature = 'benchmark:eloquent5 {samples} {chunkSize}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Query Builder (multirow insert w chunks)';
+    protected $description = 'Eloquent (multirow insert w chunks & transactions)';
 
     protected function executeTest($samples)
     {
+        DB::beginTransaction();
+
         /** @var Builder $query */
-        $query = DB::table('users');
+        //$query = User::insert('users');
 
         $chunkSize = $this->argument('chunkSize');
 
@@ -33,16 +35,20 @@ class QueryBuilder4Benchmark extends BenchmarkCommand
 
         for ($i = 0; $i < $samples; $i++) {
             if ($i % $chunkSize === 0 && $i !== 0) {
-                $query->insert($values);
-                $this->warn(sprintf (' - %d rows inserted', $i));
+                User::insert($values);
+                //$query->insert($values);
+                $this->warn(sprintf(' - %d rows inserted', $i));
                 $values = [];
             }
 
             $values[] = $this->getData($i);
         }
 
-        $query->insert($values);
-        $this->warn(sprintf (' - %d rows inserted', $i));
+        //$query->insert($values);
+        User::insert($values);
+        $this->warn(sprintf(' - %d rows inserted', $i));
+
+        DB::commit();
     }
 
     /**
